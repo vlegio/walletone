@@ -6,7 +6,7 @@ module WalletoneHelper
       :WMI_PAYMENT_AMOUNT => price,
       :WMI_CURRENCY_ID => Walletone.configuration.wmi_currency_id,
       :WMI_PAYMENT_NO => payment_no,
-      :WMI_DESCRIPTION => description,
+      :WMI_DESCRIPTION => "BASE64:#{Base64.encode64(description).to_s}",
       :WMI_SUCCESS_URL => success_url,
       :WMI_FAIL_URL => Walletone.configuration.wmi_fail_url,
       :WMI_EXPIRED_DATE => (Time.now.utc + Walletone.configuration.wmi_expired_in).strftime('%Y-%m-%dT%H:%M:%S'),
