@@ -19,13 +19,15 @@ module Walletone
         :payment_amount => params[:WMI_PAYMENT_AMOUNT],
         :currency_code => params[:WMI_CURRENCY_ID],
         :payment_id => params[:WMI_PAYMENT_NO],
-        :walletone_id => params[:WMI_ORDER_ID],
         :description => params[:WMI_DESCRIPTION],
         :expired_date => params[:WMI_EXPIRED_DATE]
       }
       record = Walletrecord.where(walletone_paid).first
       unless record.nil?
-        record.update_attribute(:state, params[:WMI_ORDER_STATE])
+        record.update_attributes({:state => params[:WMI_ORDER_STATE],
+                                  :walletone_id => params[:WMI_ORDER_ID]
+                                 }
+                                )
         return print_answer("OK")
       else
         return print_answer("Retry", "Unknown order")
